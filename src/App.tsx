@@ -7,12 +7,6 @@ import Profile from './components/profile/Index'
 
 function App() {
   return <>
-    <h1 className='text-2xl'>Hello World Tailwind CSS</h1>
-    <ul>
-      <li><a href="/">Dashboard</a></li>
-      <li><a href="/login">Login</a></li>
-      <li><a href="/profile">Profile</a></li>
-    </ul>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Dashboard/>}/>
