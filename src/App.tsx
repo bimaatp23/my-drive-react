@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Dashboard from './components/dashboard/Index'
@@ -7,6 +7,9 @@ import Profile from './components/profile/Index'
 import Register from './components/register/Index'
 
 function App() {
+  useEffect(() => {
+    document.title = 'My Drive'
+  })
   return <>
     <BrowserRouter>
       <Routes>
