@@ -14,7 +14,7 @@ export default function Button(props: Props) {
         <button 
             type={props.type} 
             onClick={props.onclick} 
-            className={'bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-600 ' + (props.class == undefined ? '' : props.class)}
+            className={'bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-600 ' + (props.class === undefined ? '' : props.class)}
         >
             {props.isLoading ? <AnimationLoading/> : props.label}
         </button>

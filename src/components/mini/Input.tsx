@@ -1,4 +1,3 @@
-import { error } from 'console'
 import React from 'react'
 
 interface Props {
@@ -17,7 +16,7 @@ export default function Input(props: Props) {
             <input 
                 type={props.type} 
                 placeholder={props.placeholder} 
-                className={'border focus:outline-none font-semibold rounded-md ' + (props.class == undefined ? '' : props.class) + (props.error ? ' border-red-500 text-red-500' : ' border-cyan-500 text-cyan-500')}
+                className={'border focus:outline-none font-semibold rounded-md ' + (props.class === undefined ? '' : props.class) + (props.error ? ' border-red-500 text-red-500' : ' border-cyan-500 text-cyan-500')}
             />
             <p 
                 className='text-red-500 font-semibold'
