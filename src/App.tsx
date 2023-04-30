@@ -1,39 +1,55 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import './App.css'
 import Dashboard from './components/dashboard/Index'
 import Login from './components/login/Index'
 import Profile from './components/profile/Index'
 import Register from './components/register/Index'
-import Redirect from './Redirect'
+// import RedirectToLogin from './RedirectToLogin'
 
 function App() {
-  const [isLogin, setIsLogin] = useState<boolean>(false)
+  const [isLogin, setIsLogin] = useState<boolean>(true)
   useEffect(() => {
     document.title = 'My Drive'
   })
   return <>
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Redirect/>}/>
-      </Routes>
-      {
-        isLogin ?
-          <div>
-            <Routes>
-              <Route path='/dashboard' element={<Dashboard/>}/>
-              <Route path='/profile' element={<Profile/>}/>
-            </Routes>
-          </div>
-          :
           <Routes>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/register' element={<Register/>}/>
+            <Route 
+              path='/login' 
+              element={<Login isLogin={isLogin} redirect={<RedirectToHome isLogin={isLogin}/>}/>}
+            />
+            <Route 
+              path='/register' 
+              element={<Register isLogin={isLogin} redirect={<RedirectToHome isLogin={isLogin}/>}/>}
+            />
+            <Route 
+              path='/' 
+              element={<Dashboard isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+            />
+            <Route 
+              path='/profile' 
+              element={<Profile isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+            />
           </Routes>
-
-      }
     </BrowserRouter>
   </>
+}
+
+interface Props {
+  isLogin: boolean
+}
+
+function RedirectToLogin(props: Props): any {
+  if (!props.isLogin) {
+    return <Navigate replace to='/login'/>
+  }
+}
+
+function RedirectToHome(props: Props): any {
+  if (props.isLogin) {
+    return <Navigate replace to='/'/>
+  }
 }
 
 export default App;

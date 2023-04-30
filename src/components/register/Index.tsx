@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Button from '../mini/Button'
 import Input from '../mini/Input'
 
 interface Props {
-
+    isLogin: boolean
+    redirect: ReactElement
 }
 
 interface State {
@@ -21,6 +22,7 @@ export default class Index extends React.Component<Props, State> {
     }
     render() {
         return <>
+            {this.props.redirect}
             <form 
                 className='fixed left-1/2 -translate-x-1/2 bg-white top-1/2 -translate-y-1/2 w-1/3 flex flex-col items-center rounded-lg py-10 space-y-3'
             >
