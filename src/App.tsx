@@ -5,7 +5,7 @@ import Dashboard from './components/dashboard/Index'
 import Login from './components/login/Index'
 import Profile from './components/profile/Index'
 import Register from './components/register/Index'
-// import RedirectToLogin from './RedirectToLogin'
+import Base from './components/base/Base'
 
 function App() {
   const [isLogin, setIsLogin] = useState<boolean>(true)
@@ -23,13 +23,19 @@ function App() {
               path='/register' 
               element={<Register isLogin={isLogin} redirect={<RedirectToHome isLogin={isLogin}/>}/>}
             />
+          </Routes>
+          <Routes>
             <Route 
               path='/' 
-              element={<Dashboard isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+              element={<Base 
+                element={<Dashboard isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+              />}
             />
             <Route 
               path='/profile' 
-              element={<Profile isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+              element={<Base 
+                element={<Profile isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+              />}
             />
           </Routes>
     </BrowserRouter>
