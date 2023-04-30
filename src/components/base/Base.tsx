@@ -14,10 +14,10 @@ export default function Base(props: Props) {
             <Header/>
             <Sidebar/>
             <div 
-                className='bg-white rounded-lg w-[calc(80%-1rem)] absolute top-20 left-[calc(20%+1rem)] h-[calc(100%-5rem)]'
+                className='bg-white rounded-lg w-[calc(80%-1rem)] absolute top-20 left-[calc(20%+1rem)] h-[calc(100%-5rem)] p-3'
             >
                 Content
-                {/* {props.element} */}
+                {props.element}
             </div>
         </div>
     </>
