@@ -16,7 +16,6 @@ export default function Base(props: Props) {
             <div 
                 className='bg-white rounded-lg w-[calc(80%-1rem)] absolute top-20 left-[calc(20%+1rem)] h-[calc(100%-5rem)] p-3'
             >
-                Content
                 {props.element}
             </div>
         </div>
