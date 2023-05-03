@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import Button from '../mini/Button'
 import Input from '../mini/Input'
+import { LoginReq } from '../../data/entity/user/LoginReq'
+import { LoginService } from '../../data/service/UserService'
 
 interface Props {
     isLogin: boolean
@@ -10,6 +12,8 @@ interface Props {
 interface State {
     error: boolean
     isLoading: boolean
+    loginReq: LoginReq
+    isDisabled: boolean
 }
 
 export default class Index extends React.Component<Props, State> {
@@ -18,7 +22,38 @@ export default class Index extends React.Component<Props, State> {
         this.state = {
             error: false,
             isLoading: false,
+            loginReq: {
+                email: '',
+                password: ''
+            },
+            isDisabled: true
         }
+    }
+    doLogin() {
+        LoginService(this.state.loginReq)
+            .subscribe({
+                next: response => {
+                    if (response.code === 200) {
+                        sessionStorage.setItem('isLogin', 'true')
+                        sessionStorage.setItem('email', response.result.email)
+                        window.location.reload()
+                    }
+                }
+            })
+    }
+    handleOnKeyUp(event: any): void {
+        if (event.target.name === 'email') {
+            this.state.loginReq.email = event.target.value
+        } else if (event.target.name === 'password') {
+            this.state.loginReq.password = event.target.value
+        }
+        this.checkInput()
+        console.log(this.state.isDisabled)
+    }
+    checkInput(): void {
+        this.setState({
+            isDisabled: !(this.state.loginReq.email !== '' && this.state.loginReq.password !== '')
+        })
     }
     render() {
         return <>
@@ -38,16 +73,22 @@ export default class Index extends React.Component<Props, State> {
                         type='text' 
                         placeholder='Email' 
                         class='w-2/3 px-4 py-2' 
-                    />
+                        onKeyUp={this.handleOnKeyUp.bind(this)}
+                        name='email'
+                        />
                     <Input 
                         type='password' 
                         placeholder='Password' 
                         class='w-2/3 px-4 py-2'
+                        onKeyUp={this.handleOnKeyUp.bind(this)}
+                        name='password'
                     />
                     <Button 
-                        type='submit' 
+                        type='button' 
                         label='Login' 
                         class='w-2/3 py-2' 
+                        onClick={this.doLogin.bind(this)}
+                        isDisabled={this.state.isDisabled}
                     />
                     <p
                         className='font-semibold'
