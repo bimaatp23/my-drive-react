@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { KeyboardEventHandler } from 'react'
 
 interface Props {
     type: 'text' | 'password'
@@ -9,6 +9,8 @@ interface Props {
     label?: string
     value?: string
     readOnly?: boolean
+    onKeyUp?: KeyboardEventHandler
+    name?: string
 }
 
 export default function Input(props: Props) {
@@ -21,13 +23,27 @@ export default function Input(props: Props) {
             >
                 {props.label === undefined ? '' : props.label}
             </label>
-            <input 
-                type={props.type} 
-                placeholder={props.placeholder} 
-                className={'border focus:outline-none font-semibold rounded-md ' + (props.class === undefined ? '' : props.class) + ' ' + (props.error ? ' border-red-500 text-red-500' : props.readOnly ? 'border-cyan-500 text-gray-500' : 'border-cyan-500 text-cyan-500')}
-                value={props.value === undefined ? '' : props.value}
-                readOnly={props.readOnly}
-            />
+            {
+                props.value === undefined ? 
+                <input 
+                    type={props.type} 
+                    placeholder={props.placeholder} 
+                    className={'border focus:outline-none font-semibold rounded-md ' + (props.class === undefined ? '' : props.class) + ' ' + (props.error ? ' border-red-500 text-red-500' : (props.readOnly ? 'border-cyan-500 text-gray-500' : 'border-cyan-500 text-cyan-500'))}
+                    readOnly={props.readOnly === undefined ? false : props.readOnly}
+                    onKeyUp={props.onKeyUp}
+                    name={props.name === undefined ? '' : props.name}
+                />
+                :
+                <input 
+                    type={props.type} 
+                    placeholder={props.placeholder} 
+                    className={'border focus:outline-none font-semibold rounded-md ' + (props.class === undefined ? '' : props.class) + ' ' + (props.error ? ' border-red-500 text-red-500' : (props.readOnly ? 'border-cyan-500 text-gray-500' : 'border-cyan-500 text-cyan-500'))}
+                    value={props.value}
+                    readOnly={props.readOnly === undefined ? false : props.readOnly}
+                    onKeyUp={props.onKeyUp}
+                    name={props.name === undefined ? '' : props.name}
+                />
+            }
             <p 
                 className='text-red-500 font-semibold'
             >
