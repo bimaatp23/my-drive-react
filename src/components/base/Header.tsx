@@ -24,7 +24,7 @@ export default function Header() {
                     <Button
                         label='Profile'
                         class='px-4 py-1'
-                        onclick={() => { window.location.href = '/profile' }}
+                        onClick={() => { window.location.href = '/profile' }}
                     />
                     <Button
                         label='Logout'

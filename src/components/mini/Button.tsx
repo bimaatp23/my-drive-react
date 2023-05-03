@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 
 interface Props {
-    onclick?: any
+    onClick?: MouseEventHandler
     label: string
     class?: string
     type?: 'button' | 'submit' | 'reset' | undefined
     isLoading?: boolean
+    isDisabled?: boolean
 }
 
 export default function Button(props: Props) {
@@ -13,8 +14,9 @@ export default function Button(props: Props) {
     return <>
         <button 
             type={props.type} 
-            onClick={props.onclick} 
-            className={'bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-600 ' + (props.class === undefined ? '' : props.class)}
+            onClick={props.onClick} 
+            className={'text-white rounded-md font-semibold ' + (props.class === undefined ? '' : props.class) + (props.isDisabled ? ' bg-gray-500' : ' bg-cyan-500 hover:bg-cyan-600')}
+            disabled={props.isDisabled}
         >
             {props.isLoading ? <AnimationLoading/> : props.label}
         </button>
