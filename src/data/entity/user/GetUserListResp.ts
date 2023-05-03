@@ -1,10 +1,10 @@
 import { BaseResp } from "../BaseResp"
 
 export interface GetUserListResp extends BaseResp {
-    result: ResultGetUserList[]
+    result: UserList[]
 }
 
-export interface ResultGetUserList {
+export interface UserList {
     id: number
     firstName: string
     lastName: string
