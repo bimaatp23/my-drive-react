@@ -8,7 +8,7 @@ import Register from './components/register/Index'
 import Base from './components/base/Base'
 
 function App() {
-  const [isLogin, setIsLogin] = useState<boolean>(false)
+  const [isLogin, setIsLogin] = useState<boolean>(true)
   useEffect(() => {
     document.title = 'My Drive'
   })

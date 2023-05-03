@@ -13,9 +13,6 @@ export function GetUserListService(): Observable<GetUserListResp> {
             observer.next(convertToCamelCase(response.data) as GetUserListResp)
             observer.complete()
         })
-        .catch(error => {
-            observer.error(error)
-        })
     })
 }
 
@@ -26,9 +23,6 @@ export function GetUserService(getUserReq: GetUserReq): Observable<GetUserResp> 
         .then(response => {
             observer.next(convertToCamelCase(response.data) as GetUserResp)
             observer.complete()
-        })
-        .catch(error => {
-            observer.error(error)
         })
     })
 }

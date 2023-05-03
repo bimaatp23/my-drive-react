@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
 import Input from '../mini/Input'
+import { DataGetUserResp } from '../../data/entity/user/GetUserResp'
+import { GetUserService } from '../../data/service/UserService'
 
 interface Props {
     isLogin: boolean
@@ -7,15 +9,35 @@ interface Props {
 }
 
 interface State {
-
+    user: DataGetUserResp
 }
 
 export default class Index extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            
+            user: {
+                id: 0,
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                createdAt: '',
+                updatedAt: ''
+            }
         }
+    }
+    componentDidMount(): void {
+        GetUserService({ email: 'mega.putri@gmail.com' })
+            .subscribe({
+                next: (response) => {
+                    if (response.code == 200) {
+                        this.setState({
+                            user: response.result
+                        })
+                    }
+                }
+            })
     }
     render() {
         return <>
@@ -50,7 +72,7 @@ export default class Index extends React.Component<Props, State> {
                                 type='text' 
                                 class='w-full px-4 py-2'
                                 label='First Name'
-                                value='Bima'
+                                value={this.state.user.firstName}
                             />
                         </div>
                         <div>
@@ -58,7 +80,7 @@ export default class Index extends React.Component<Props, State> {
                                 type='text' 
                                 class='w-full px-4 py-2'
                                 label='Last Name'
-                                value='Tribuana Putra'
+                                value={this.state.user.lastName}
                                 readOnly={true}
                             />
                         </div>
@@ -69,7 +91,7 @@ export default class Index extends React.Component<Props, State> {
                                 type='text' 
                                 class='w-full px-4 py-2'
                                 label='Email'
-                                value='bimaatp.23@gmail.com'
+                                value={this.state.user.email}
                                 error={true}
                             />
                         </div>
