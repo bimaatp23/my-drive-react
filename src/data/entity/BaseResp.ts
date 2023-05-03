@@ -4,3 +4,13 @@ export interface BaseResp {
     message: string
     result?: any
 }
+
+export interface UserResp {
+    id: number
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    createdAt: string
+    updatedAt: string
+}
