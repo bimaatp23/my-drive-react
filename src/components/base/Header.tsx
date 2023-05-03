@@ -29,6 +29,10 @@ export default function Header() {
                     <Button
                         label='Logout'
                         class='px-4 py-1'
+                        onClick={() => { 
+                            sessionStorage.clear() 
+                            window.location.reload()
+                        }}
                     />
                 </div>
             </div>
