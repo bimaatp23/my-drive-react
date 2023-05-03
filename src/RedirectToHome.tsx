@@ -1,25 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 interface Props {
-
-}
-
-interface State {
     isLogin: boolean
 }
 
-export default class Redirect extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props)
-        this.state = {
-            isLogin: false
+export default function RedirectToLogin(props: Props) {
+    useEffect(() => {
+        if (props.isLogin) {
+            window.location.href = '/'
         }
-        this.state.isLogin ? 
-            window.location.href = '/dashboard'
-            :
-            window.location.href = '/login'
-    }
-    render() {
-        return <></>
-    }
+    })
+    return <></>
 }

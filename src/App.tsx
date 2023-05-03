@@ -8,14 +8,9 @@ import Register from './components/register/Index'
 import Base from './components/base/Base'
 
 function App() {
-  const [isLogin, setIsLogin] = useState<boolean>(false)
+  const isLogin: boolean = checkLogin()
   useEffect(() => {
     document.title = 'My Drive'
-    if (sessionStorage.getItem('isLogin') === 'true') {
-      setIsLogin(true)
-    } else {
-      setIsLogin(false)
-    }
   })
   return <>
     <BrowserRouter>
@@ -45,6 +40,14 @@ function App() {
           </Routes>
     </BrowserRouter>
   </>
+}
+
+function checkLogin() {
+  if (sessionStorage.getItem('isLogin') === 'true') {
+    return true
+  } else {
+    return false
+  }
 }
 
 interface Props {
