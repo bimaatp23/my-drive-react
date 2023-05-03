@@ -28,7 +28,7 @@ export default class Index extends React.Component<Props, State> {
         }
     }
     componentDidMount(): void {
-        GetUserService({ email: 'mega.putri@gmail.com' })
+        GetUserService({ email: sessionStorage.getItem('email') as string })
             .subscribe({
                 next: (response) => {
                     if (response.code == 200) {
