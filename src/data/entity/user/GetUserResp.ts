@@ -1,10 +1,10 @@
 import { BaseResp } from "../BaseResp"
 
 export interface GetUserResp extends BaseResp {
-    result: DataGetUserResp
+    result: User
 }
 
-export interface DataGetUserResp {
+export interface User {
     id: number
     firstName: string
     lastName: string
