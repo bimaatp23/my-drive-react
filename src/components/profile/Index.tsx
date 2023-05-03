@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
-import Input from '../mini/Input'
-import { DataGetUserResp } from '../../data/entity/user/GetUserResp'
+import { UserResp } from '../../data/entity/BaseResp'
 import { GetUserService } from '../../data/service/UserService'
+import Input from '../mini/Input'
 
 interface Props {
     isLogin: boolean
@@ -9,7 +9,7 @@ interface Props {
 }
 
 interface State {
-    user: DataGetUserResp
+    user: UserResp
 }
 
 export default class Index extends React.Component<Props, State> {
