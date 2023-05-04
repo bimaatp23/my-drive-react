@@ -5,7 +5,7 @@ import { GetUserListResp } from "../entity/user/GetUserListResp"
 import { GetUserReq } from "../entity/user/GetUserReq"
 import { GetUserResp } from "../entity/user/GetUserResp"
 import { LoginReq } from "../entity/user/LoginReq"
-import { LoginResp } from "../entity/user/LoginResp"
+import { LoginResp, ValidateLoginResp } from "../entity/user/LoginResp"
 import { convertToCamelCase, convertToSnakeCase } from '../mapper/BaseMapper'
 
 export function GetUserListService(): Observable<GetUserListResp> {
@@ -29,12 +29,16 @@ export function GetUserService(getUserReq: GetUserReq): Observable<GetUserResp> 
     })
 }
 
-export function LoginService(loginReq: LoginReq): Observable<LoginResp> {
+export function LoginService(loginReq: LoginReq): Observable<LoginResp | ValidateLoginResp> {
     const req = convertToSnakeCase(loginReq)
     return new Observable(observer => {
         axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/login`, req, HEADERS_MULTIPART)
             .then(response => {
-                observer.next(convertToCamelCase(response.data) as LoginResp)
+                if (response.data.code === 200) {
+                    observer.next(convertToCamelCase(response.data) as LoginResp)
+                } else if (response.data.code === 400) {
+                    observer.next(convertToCamelCase(response.data.result) as ValidateLoginResp)
+                }
                 observer.complete()
             })
     })
