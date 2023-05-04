@@ -4,6 +4,7 @@ import { LoginReq } from '../../data/entity/user/LoginReq'
 import { LoginService } from '../../data/service/UserService'
 import Button from '../mini/Button'
 import Input from '../mini/Input'
+import { Alert } from '../mini/Alert'
 
 interface Props {
     isLogin: boolean
@@ -61,6 +62,7 @@ export default class Index extends React.Component<Props, State> {
                         this.setState({
                             validate: response.result
                         })
+                        Alert('error', response.message, '')
                     }
                 }
             })
