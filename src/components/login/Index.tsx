@@ -15,12 +15,7 @@ interface State {
     isLoading: boolean
     loginReq: LoginReq
     isDisabled: boolean
-    validate: Validate
-}
-
-interface Validate {
-    email: string
-    password: string
+    validate: LoginReq
 }
 
 export default class Index extends React.Component<Props, State> {
@@ -63,7 +58,6 @@ export default class Index extends React.Component<Props, State> {
                         sessionStorage.setItem('email', response.result.email)
                         window.location.reload()
                     } else if (response.code === 400) {
-                        console.log('Ini Error')
                         this.setState({
                             validate: response.result
                         })
