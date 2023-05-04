@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
+import { finalize } from 'rxjs'
 import { RegisterReq } from '../../data/entity/user/RegisterReq'
 import { RegisterService } from '../../data/service/UserService'
+import { Alert } from '../mini/Alert'
 import Button from '../mini/Button'
 import Input from '../mini/Input'
-import { finalize } from 'rxjs'
 
 interface Props {
     isLogin: boolean
@@ -63,10 +64,12 @@ export default class Index extends React.Component<Props, State> {
             .subscribe({
                 next: response => {
                     if (response.code === 200) {
+                        Alert('success', response.message, '')
                     } else if (response.code === 400) {
                         this.setState({
                             validate: response.result
                         })
+                        Alert('error', response.message, '')
                     }
                 }
             })
