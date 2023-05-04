@@ -31,7 +31,7 @@ export function GetUserService(getUserReq: GetUserReq): Observable<GetUserResp> 
     })
 }
 
-export function LoginService(loginReq: LoginReq): Observable<LoginResp | ValidateLoginResp> {
+export function LoginService(loginReq: LoginReq): Observable<any> {
     const req = convertToSnakeCase(loginReq)
     return new Observable(observer => {
         axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/login`, req, HEADERS_MULTIPART)
@@ -46,7 +46,7 @@ export function LoginService(loginReq: LoginReq): Observable<LoginResp | Validat
     })
 }
 
-export function RegisterService(registerReq: RegisterReq): Observable<RegisterResp | ValidateRegisterResp> {
+export function RegisterService(registerReq: RegisterReq): Observable<any> {
     const req = convertToSnakeCase(registerReq)
     return new Observable(observer => {
         axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/register`, req, HEADERS_MULTIPART)
@@ -54,8 +54,9 @@ export function RegisterService(registerReq: RegisterReq): Observable<RegisterRe
                 if (response.data.code === 200) {
                     observer.next(convertToCamelCase(response.data) as RegisterResp)
                 } else if (response.data.code === 400) {
-                    observer.next(convertToCamelCase(response.data.result))
+                    observer.next(convertToCamelCase(response.data) as ValidateRegisterResp)
                 }
+                observer.complete()
             })
     })
 }
