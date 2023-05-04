@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
-import Button from '../mini/Button'
-import Input from '../mini/Input'
+import { finalize } from 'rxjs'
 import { LoginReq } from '../../data/entity/user/LoginReq'
 import { LoginService } from '../../data/service/UserService'
+import Button from '../mini/Button'
+import Input from '../mini/Input'
 
 interface Props {
     isLogin: boolean
@@ -14,6 +15,12 @@ interface State {
     isLoading: boolean
     loginReq: LoginReq
     isDisabled: boolean
+    validate: Validate
+}
+
+interface Validate {
+    email: string
+    password: string
 }
 
 export default class Index extends React.Component<Props, State> {
@@ -26,17 +33,40 @@ export default class Index extends React.Component<Props, State> {
                 email: '',
                 password: ''
             },
-            isDisabled: true
+            isDisabled: true,
+            validate: {
+                email: '',
+                password: ''
+            }
         }
     }
     doLogin() {
+        this.setState({
+            isLoading: true,
+            validate: {
+                email: '',
+                password: ''
+            }
+        })
         LoginService(this.state.loginReq)
+            .pipe(
+                finalize(() => {
+                    this.setState({
+                        isLoading: false
+                    })
+                })
+            )
             .subscribe({
                 next: response => {
                     if (response.code === 200) {
                         sessionStorage.setItem('isLogin', 'true')
                         sessionStorage.setItem('email', response.result.email)
                         window.location.reload()
+                    } else if (response.code === 400) {
+                        console.log('Ini Error')
+                        this.setState({
+                            validate: response.result
+                        })
                     }
                 }
             })
@@ -48,7 +78,6 @@ export default class Index extends React.Component<Props, State> {
             this.state.loginReq.password = event.target.value
         }
         this.checkInput()
-        console.log(this.state.isDisabled)
     }
     checkInput(): void {
         this.setState({
@@ -75,20 +104,25 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2' 
                         onKeyUp={this.handleOnKeyUp.bind(this)}
                         name='email'
-                        />
+                        error={this.state.validate.email.length > 0}
+                        errorMessage={this.state.validate.email}
+                    />
                     <Input 
                         type='password' 
                         placeholder='Password' 
                         class='w-2/3 px-4 py-2'
                         onKeyUp={this.handleOnKeyUp.bind(this)}
                         name='password'
+                        error={this.state.validate.password.length > 0}
+                        errorMessage={this.state.validate.password}
                     />
                     <Button 
                         type='button' 
                         label='Login' 
                         class='w-2/3 py-2' 
                         onClick={this.doLogin.bind(this)}
-                        isDisabled={this.state.isDisabled}
+                        isDisabled={this.state.isDisabled || this.state.isLoading}
+                        isLoading={this.state.isLoading}
                     />
                     <p
                         className='font-semibold'
