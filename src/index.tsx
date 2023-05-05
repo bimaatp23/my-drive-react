@@ -10,6 +10,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App />
+    <img 
+      src="react.png" 
+      alt="React"
+      className="w-1/12 fixed bottom-14 right-10 opacity-50 z-50"
+    />
   </React.StrictMode>
 );
 
