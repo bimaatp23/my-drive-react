@@ -113,7 +113,7 @@ export default class Index extends React.Component<Props, State> {
                 }
             })
     }
-    handleOnkeyUp(event: any): void {
+    handleOnChange(event: any): void {
         const value = event.target.value
         var firstName = this.state.updateUserReq.firstName
         var lastName = this.state.updateUserReq.lastName
@@ -190,7 +190,7 @@ export default class Index extends React.Component<Props, State> {
                                 label='First Name'
                                 value={this.state.updateUserReq.firstName}
                                 name='firstName'
-                                onChange={this.handleOnkeyUp.bind(this)}
+                                onChange={this.handleOnChange.bind(this)}
                                 readOnly={!this.state.isEdit}
                                 />
                         </div>
@@ -201,7 +201,7 @@ export default class Index extends React.Component<Props, State> {
                                 label='Last Name'
                                 value={this.state.updateUserReq.lastName}
                                 name='lastName'
-                                onChange={this.handleOnkeyUp.bind(this)}
+                                onChange={this.handleOnChange.bind(this)}
                                 readOnly={!this.state.isEdit}
                             />
                         </div>
@@ -228,7 +228,7 @@ export default class Index extends React.Component<Props, State> {
                                         label='Password'
                                         value={this.state.updateUserReq.password}
                                         name='password'
-                                        onChange={this.handleOnkeyUp.bind(this)}
+                                        onChange={this.handleOnChange.bind(this)}
                                         error={this.state.validate.password.length > 0}
                                         errorMessage={this.state.validate.password}
                                     />

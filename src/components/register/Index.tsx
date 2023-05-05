@@ -74,25 +74,39 @@ export default class Index extends React.Component<Props, State> {
                 }
             })
     }
-    handleOnKeyUp(event: any): void {
+    handleOnChange(event: any): void {
         const value = event.target.value
+        var firstName = this.state.registerReq.firstName
+        var lastName = this.state.registerReq.lastName
+        var email = this.state.registerReq.email
+        var password = this.state.registerReq.password
+        var cPassword = this.state.registerReq.cPassword
         switch (event.target.name) {
             case 'firstName':
-                this.state.registerReq.firstName = value
+                firstName = value
                 break
             case 'lastName':
-                this.state.registerReq.lastName = value
+                lastName = value
                 break
             case 'email':
-                this.state.registerReq.email = value
+                email = value
                 break
             case 'password':
-                this.state.registerReq.password = value
+                password = value
                 break
             case 'cPassword':
-                this.state.registerReq.cPassword = value
+                cPassword = value
                 break
         }
+        this.setState({
+            registerReq: {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                cPassword: cPassword,
+            }
+        })
         this.checkInput()
     }
     checkInput(): void {
@@ -122,7 +136,7 @@ export default class Index extends React.Component<Props, State> {
                         type='text' 
                         placeholder='First Name' 
                         class='w-2/3 px-4 py-2'
-                        onKeyUp={this.handleOnKeyUp.bind(this)}
+                        onChange={this.handleOnChange.bind(this)}
                         name='firstName' 
                         error={this.state.validate.firstName.length > 0}
                         errorMessage={this.state.validate.firstName}
@@ -131,7 +145,7 @@ export default class Index extends React.Component<Props, State> {
                         type='text' 
                         placeholder='Last Name' 
                         class='w-2/3 px-4 py-2'
-                        onKeyUp={this.handleOnKeyUp.bind(this)}
+                        onChange={this.handleOnChange.bind(this)}
                         name='lastName' 
                         error={this.state.validate.lastName.length > 0}
                         errorMessage={this.state.validate.lastName}
@@ -140,7 +154,7 @@ export default class Index extends React.Component<Props, State> {
                         type='text' 
                         placeholder='Email' 
                         class='w-2/3 px-4 py-2'
-                        onKeyUp={this.handleOnKeyUp.bind(this)}
+                        onChange={this.handleOnChange.bind(this)}
                         name='email' 
                         error={this.state.validate.email.length > 0}
                         errorMessage={this.state.validate.email}
@@ -149,7 +163,7 @@ export default class Index extends React.Component<Props, State> {
                         type='password' 
                         placeholder='Password' 
                         class='w-2/3 px-4 py-2'
-                        onKeyUp={this.handleOnKeyUp.bind(this)}
+                        onChange={this.handleOnChange.bind(this)}
                         name='password'
                         error={this.state.validate.password.length > 0}
                         errorMessage={this.state.validate.password}
@@ -158,7 +172,7 @@ export default class Index extends React.Component<Props, State> {
                         type='password' 
                         placeholder='Re-Password' 
                         class='w-2/3 px-4 py-2'
-                        onKeyUp={this.handleOnKeyUp.bind(this)}
+                        onChange={this.handleOnChange.bind(this)}
                         name='cPassword'
                         error={this.state.validate.cPassword.length > 0}
                         errorMessage={this.state.validate.cPassword}
