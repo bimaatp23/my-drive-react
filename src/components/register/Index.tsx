@@ -64,6 +64,15 @@ export default class Index extends React.Component<Props, State> {
             .subscribe({
                 next: response => {
                     if (response.code === 200) {
+                        this.setState({
+                            registerReq: {
+                                firstName: '',
+                                lastName: '',
+                                email: '',
+                                password: '',
+                                cPassword: ''
+                            }
+                        })
                         Alert('success', response.message, '')
                     } else if (response.code === 400) {
                         this.setState({
@@ -140,6 +149,7 @@ export default class Index extends React.Component<Props, State> {
                         name='firstName' 
                         error={this.state.validate.firstName.length > 0}
                         errorMessage={this.state.validate.firstName}
+                        value={this.state.registerReq.firstName}
                     />
                     <Input 
                         type='text' 
@@ -149,6 +159,7 @@ export default class Index extends React.Component<Props, State> {
                         name='lastName' 
                         error={this.state.validate.lastName.length > 0}
                         errorMessage={this.state.validate.lastName}
+                        value={this.state.registerReq.lastName}
                     />
                     <Input 
                         type='text' 
@@ -158,6 +169,7 @@ export default class Index extends React.Component<Props, State> {
                         name='email' 
                         error={this.state.validate.email.length > 0}
                         errorMessage={this.state.validate.email}
+                        value={this.state.registerReq.email}
                     />
                     <Input 
                         type='password' 
@@ -167,6 +179,7 @@ export default class Index extends React.Component<Props, State> {
                         name='password'
                         error={this.state.validate.password.length > 0}
                         errorMessage={this.state.validate.password}
+                        value={this.state.registerReq.password}
                     />
                     <Input 
                         type='password' 
@@ -176,6 +189,7 @@ export default class Index extends React.Component<Props, State> {
                         name='cPassword'
                         error={this.state.validate.cPassword.length > 0}
                         errorMessage={this.state.validate.cPassword}
+                        value={this.state.registerReq.cPassword}
                     />
                     <Button 
                         type='button' 
