@@ -68,11 +68,20 @@ export default class Index extends React.Component<Props, State> {
             })
     }
     handleOnKeyUp(event: any): void {
+        var value = event.target.value
+        var email = this.state.loginReq.email
+        var password = this.state.loginReq.password
         if (event.target.name === 'email') {
-            this.state.loginReq.email = event.target.value
+           email = value
         } else if (event.target.name === 'password') {
-            this.state.loginReq.password = event.target.value
+           password = value
         }
+        this.setState({
+            loginReq: {
+                email: email,
+                password: password
+            }
+        })
         this.checkInput()
     }
     checkInput(): void {
