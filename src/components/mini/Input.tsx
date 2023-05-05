@@ -1,4 +1,4 @@
-import React, { KeyboardEventHandler } from 'react'
+import React, { ChangeEventHandler, KeyboardEventHandler } from 'react'
 
 interface Props {
     type: 'text' | 'password'
@@ -11,6 +11,7 @@ interface Props {
     readOnly?: boolean
     onKeyUp?: KeyboardEventHandler
     name?: string
+    onChange?: ChangeEventHandler
 }
 
 export default function Input(props: Props) {
@@ -32,6 +33,7 @@ export default function Input(props: Props) {
                     readOnly={props.readOnly === undefined ? false : props.readOnly}
                     onKeyUp={props.onKeyUp}
                     name={props.name === undefined ? '' : props.name}
+                    onChange={props.onChange}
                 />
                 :
                 <input 
@@ -42,6 +44,7 @@ export default function Input(props: Props) {
                     readOnly={props.readOnly === undefined ? false : props.readOnly}
                     onKeyUp={props.onKeyUp}
                     name={props.name === undefined ? '' : props.name}
+                    onChange={props.onChange}
                 />
             }
             <p 
