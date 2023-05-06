@@ -14,3 +14,11 @@ export interface UserResp {
     createdAt: string
     updatedAt: string
 }
+
+export interface TokenResp {
+    id: number
+    email: string
+    token: string
+    createdAt: string
+    updatedAt: string
+}
