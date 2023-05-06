@@ -17,7 +17,7 @@ interface State {
     isLoading: boolean
     loginReq: LoginReq
     isDisabled: boolean
-    validate: LoginReq
+    validate: any
 }
 
 export default class Index extends React.Component<Props, State> {
@@ -31,33 +31,28 @@ export default class Index extends React.Component<Props, State> {
                 password: ''
             },
             isDisabled: true,
-            validate: {
-                email: '',
-                password: ''
-            }
+            validate: {}
         }
     }
     doLogin() {
         this.setState({
             isLoading: true,
-            validate: {
-                email: '',
-                password: ''
-            }
+            validate: {}
         })
         LoginService(this.state.loginReq)
             .subscribe({
                 next: response => {
-                    if (response.code === 200) {
-                        this.createToken(response.result.email)
-                    } else if (response.code === 400) {
+                    this.createToken(response.result.email)
+                },
+                error: error => {
+                    if (error.code === 400) {
                         this.setState({
-                            validate: response.result
+                            validate: error.result
                         })
                         this.setState({
                             isLoading: false
                         })
-                        Alert('error', response.message, '')
+                        Alert('error', error.message, '')
                     }
                 }
             })
@@ -78,7 +73,7 @@ export default class Index extends React.Component<Props, State> {
                         sessionStorage.setItem('isLogin', 'true')
                         sessionStorage.setItem('email', response.result.email)
                         sessionStorage.setItem('token', response.result.token)
-                        window.location.reload()
+                        window.location.assign('/')
                     }
                 }
             })
@@ -125,7 +120,7 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2' 
                         onKeyUp={this.handleOnKeyUp.bind(this)}
                         name='email'
-                        error={this.state.validate.email.length > 0}
+                        error={this.state.validate.email !== undefined}
                         errorMessage={this.state.validate.email}
                     />
                     <Input 
@@ -134,7 +129,7 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2'
                         onKeyUp={this.handleOnKeyUp.bind(this)}
                         name='password'
-                        error={this.state.validate.password.length > 0}
+                        error={this.state.validate.password !== undefined}
                         errorMessage={this.state.validate.password}
                     />
                     <Button 
