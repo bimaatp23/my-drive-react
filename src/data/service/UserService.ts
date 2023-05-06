@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Observable } from "rxjs"
-import { API_BASE_ENDPOINT, API_USER_ENDPONT, HEADERS_MULTIPART } from '../../PublicConstant'
+import { API_BASE_ENDPOINT, API_USER_ENDPONT, HEADERS_MULTIPART, HEADERS_MULTIPART_TOKEN, HEADERS_TOKEN } from '../../PublicConstant'
 import { BaseResp } from "../entity/BaseResp"
 import { GetUserListResp } from "../entity/user/GetUserListResp"
 import { GetUserReq } from "../entity/user/GetUserReq"
@@ -15,7 +15,7 @@ import { convertToCamelCase, convertToSnakeCase } from '../mapper/BaseMapper'
 
 export function GetUserListService(): Observable<BaseResp> {
     return new Observable(observer => {
-        axios.get(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/list`)
+        axios.get(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/list`, HEADERS_TOKEN)
             .then(response => {
                 observer.next(convertToCamelCase(response.data) as GetUserListResp)
                 observer.complete()
@@ -29,9 +29,23 @@ export function GetUserListService(): Observable<BaseResp> {
 export function GetUserService(getUserReq: GetUserReq): Observable<BaseResp> {
     const req = convertToSnakeCase(getUserReq)
     return new Observable(observer => {
-        axios.get(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/${req.email}`)
+        axios.get(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/${req.email}`, HEADERS_TOKEN)
             .then(response => {
                 observer.next(convertToCamelCase(response.data) as GetUserResp)
+                observer.complete()
+            })
+            .catch(error => {
+                observer.error(convertToCamelCase(error.response.data) as BaseResp)
+            })
+    })
+}
+
+export function UpdateUserService(updateUserReq: UpdateUserReq): Observable<BaseResp> {
+    const req = convertToSnakeCase(updateUserReq)
+    return new Observable(observer => {
+        axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/update`, req, HEADERS_MULTIPART_TOKEN)
+            .then(response => {
+                observer.next(convertToCamelCase(response.data) as UpdateUserResp)
                 observer.complete()
             })
             .catch(error => {
@@ -60,20 +74,6 @@ export function RegisterService(registerReq: RegisterReq): Observable<BaseResp> 
         axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/register`, req, HEADERS_MULTIPART)
             .then(response => {
                 observer.next(convertToCamelCase(response.data) as RegisterResp)
-                observer.complete()
-            })
-            .catch(error => {
-                observer.error(convertToCamelCase(error.response.data) as BaseResp)
-            })
-    })
-}
-
-export function UpdateUserService(updateUserReq: UpdateUserReq): Observable<BaseResp> {
-    const req = convertToSnakeCase(updateUserReq)
-    return new Observable(observer => {
-        axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/update`, req, HEADERS_MULTIPART)
-            .then(response => {
-                observer.next(convertToCamelCase(response.data) as UpdateUserResp)
                 observer.complete()
             })
             .catch(error => {
