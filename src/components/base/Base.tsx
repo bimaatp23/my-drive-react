@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
+import { CheckTokenService } from '../../data/service/TokenService'
 import Header from './Header'
 import Sidebar from './Sidebar'
 
@@ -7,6 +8,9 @@ interface Props {
 }
 
 export default function Base(props: Props) {
+    useEffect(() => {
+        checkToken()
+    })
     return <>
         <div 
             className='fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[95%] h-[85%]'
@@ -20,4 +24,16 @@ export default function Base(props: Props) {
             </div>
         </div>
     </>
+}
+
+function checkToken(): void {
+    CheckTokenService()
+        .subscribe({
+            error: error => {
+                if (error.code === 403) {
+                    sessionStorage.clear() 
+                    window.location.assign('/login')
+                }
+            }
+        })
 }
