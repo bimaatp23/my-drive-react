@@ -7,3 +7,16 @@ export const HEADERS_MULTIPART = {
         'Content-Type': 'multipart/form-data'
     }
 }
+
+export const HEADERS_TOKEN = {
+    headers: {
+        'Token': sessionStorage.getItem('token')
+    }
+}
+
+export const HEADERS_MULTIPART_TOKEN = {
+    headers: {
+        'Content-Type': 'multipart/form-data',
+        'Token': sessionStorage.getItem('token')
+    }
+}
