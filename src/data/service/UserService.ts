@@ -17,13 +17,11 @@ export function GetUserListService(): Observable<BaseResp> {
     return new Observable(observer => {
         axios.get(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/list`)
             .then(response => {
-                if (response.data.code === 200) {
-                    observer.next(convertToCamelCase(response.data) as GetUserListResp)
-                }
+                observer.next(convertToCamelCase(response.data) as GetUserListResp)
                 observer.complete()
             })
             .catch(error => {
-                observer.error(convertToCamelCase(error.response.data))
+                observer.error(convertToCamelCase(error.response.data) as BaseResp)
             })
     })
 }
@@ -33,13 +31,11 @@ export function GetUserService(getUserReq: GetUserReq): Observable<BaseResp> {
     return new Observable(observer => {
         axios.get(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/${req.email}`)
             .then(response => {
-                if (response.data.code === 200) {
-                    observer.next(convertToCamelCase(response.data) as GetUserResp)
-                }
+                observer.next(convertToCamelCase(response.data) as GetUserResp)
                 observer.complete()
             })
             .catch(error => {
-                observer.error(convertToCamelCase(error.response.data))
+                observer.error(convertToCamelCase(error.response.data) as BaseResp)
             })
     })
 }
@@ -49,13 +45,11 @@ export function LoginService(loginReq: LoginReq): Observable<BaseResp> {
     return new Observable(observer => {
         axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/login`, req, HEADERS_MULTIPART)
             .then(response => {
-                if (response.data.code === 200) {
-                    observer.next(convertToCamelCase(response.data) as LoginResp)
-                }
+                observer.next(convertToCamelCase(response.data) as LoginResp)
                 observer.complete()
             })
             .catch(error => {
-                observer.error(convertToCamelCase(error.response.data))
+                observer.error(convertToCamelCase(error.response.data) as BaseResp)
             })
     })
 }
@@ -65,13 +59,11 @@ export function RegisterService(registerReq: RegisterReq): Observable<BaseResp> 
     return new Observable(observer => {
         axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/register`, req, HEADERS_MULTIPART)
             .then(response => {
-                if (response.data.code === 200) {
-                    observer.next(convertToCamelCase(response.data) as RegisterResp)
-                }
+                observer.next(convertToCamelCase(response.data) as RegisterResp)
                 observer.complete()
             })
             .catch(error => {
-                observer.error(convertToCamelCase(error.response.data))
+                observer.error(convertToCamelCase(error.response.data) as BaseResp)
             })
     })
 }
@@ -81,13 +73,11 @@ export function UpdateUserService(updateUserReq: UpdateUserReq): Observable<Base
     return new Observable(observer => {
         axios.post(`${API_BASE_ENDPOINT}/${API_USER_ENDPONT}/update`, req, HEADERS_MULTIPART)
             .then(response => {
-                if (response.data.code === 200) {
-                    observer.next(convertToCamelCase(response.data) as UpdateUserResp)
-                }
+                observer.next(convertToCamelCase(response.data) as UpdateUserResp)
                 observer.complete()
             })
             .catch(error => {
-                observer.error(convertToCamelCase(error.response.data))
+                observer.error(convertToCamelCase(error.response.data) as BaseResp)
             })
     })
 }
