@@ -16,7 +16,7 @@ interface State {
     isLoading: boolean
     registerReq: RegisterReq
     isDisabled: boolean
-    validate: RegisterReq
+    validate: any
 }
 
 export default class Index extends React.Component<Props, State> {
@@ -33,25 +33,13 @@ export default class Index extends React.Component<Props, State> {
                 cPassword: ''
             },
             isDisabled: true,
-            validate: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                cPassword: ''
-            }
+            validate: {}
         }
     }
     doRegister() {
         this.setState({
             isLoading: true,
-            validate: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                cPassword: ''
-            }
+            validate: {}
         })
         RegisterService(this.state.registerReq)
             .pipe(
@@ -74,11 +62,14 @@ export default class Index extends React.Component<Props, State> {
                             }
                         })
                         Alert('success', response.message, '')
-                    } else if (response.code === 400) {
+                    }
+                },
+                error: error => {
+                    if (error.code === 400) {
                         this.setState({
-                            validate: response.result
+                            validate: error.result
                         })
-                        Alert('error', response.message, '')
+                        Alert('error', error.message, '')
                     }
                 }
             })
@@ -147,7 +138,7 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2'
                         onChange={this.handleOnChange.bind(this)}
                         name='firstName' 
-                        error={this.state.validate.firstName.length > 0}
+                        error={this.state.validate.firstName !== undefined}
                         errorMessage={this.state.validate.firstName}
                         value={this.state.registerReq.firstName}
                     />
@@ -157,7 +148,7 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2'
                         onChange={this.handleOnChange.bind(this)}
                         name='lastName' 
-                        error={this.state.validate.lastName.length > 0}
+                        error={this.state.validate.lastName !== undefined}
                         errorMessage={this.state.validate.lastName}
                         value={this.state.registerReq.lastName}
                     />
@@ -167,7 +158,7 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2'
                         onChange={this.handleOnChange.bind(this)}
                         name='email' 
-                        error={this.state.validate.email.length > 0}
+                        error={this.state.validate.email !== undefined}
                         errorMessage={this.state.validate.email}
                         value={this.state.registerReq.email}
                     />
@@ -177,7 +168,7 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2'
                         onChange={this.handleOnChange.bind(this)}
                         name='password'
-                        error={this.state.validate.password.length > 0}
+                        error={this.state.validate.password !== undefined}
                         errorMessage={this.state.validate.password}
                         value={this.state.registerReq.password}
                     />
@@ -187,7 +178,7 @@ export default class Index extends React.Component<Props, State> {
                         class='w-2/3 px-4 py-2'
                         onChange={this.handleOnChange.bind(this)}
                         name='cPassword'
-                        error={this.state.validate.cPassword.length > 0}
+                        error={this.state.validate.cPassword !== undefined}
                         errorMessage={this.state.validate.cPassword}
                         value={this.state.registerReq.cPassword}
                     />
