@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { finalize } from 'rxjs'
 import { LoginReq } from '../../data/entity/user/LoginReq'
+import { CreateTokenService } from '../../data/service/TokenService'
 import { LoginService } from '../../data/service/UserService'
 import { Alert } from '../mini/Alert'
 import Button from '../mini/Button'
@@ -45,6 +46,24 @@ export default class Index extends React.Component<Props, State> {
             }
         })
         LoginService(this.state.loginReq)
+            .subscribe({
+                next: response => {
+                    if (response.code === 200) {
+                        this.createToken(response.result.email)
+                    } else if (response.code === 400) {
+                        this.setState({
+                            validate: response.result
+                        })
+                        this.setState({
+                            isLoading: false
+                        })
+                        Alert('error', response.message, '')
+                    }
+                }
+            })
+    }
+    createToken(email: string) {
+        CreateTokenService({email})
             .pipe(
                 finalize(() => {
                     this.setState({
@@ -55,14 +74,11 @@ export default class Index extends React.Component<Props, State> {
             .subscribe({
                 next: response => {
                     if (response.code === 200) {
+                        console.log(response)
                         sessionStorage.setItem('isLogin', 'true')
                         sessionStorage.setItem('email', response.result.email)
+                        sessionStorage.setItem('token', response.result.token)
                         window.location.reload()
-                    } else if (response.code === 400) {
-                        this.setState({
-                            validate: response.result
-                        })
-                        Alert('error', response.message, '')
                     }
                 }
             })
