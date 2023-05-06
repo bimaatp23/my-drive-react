@@ -31,7 +31,7 @@ export default function Header() {
                         class='px-4 py-1'
                         onClick={() => { 
                             sessionStorage.clear() 
-                            window.location.reload()
+                            window.location.assign('/login')
                         }}
                     />
                 </div>
