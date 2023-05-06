@@ -17,7 +17,7 @@ interface State {
     updateUserReq: UpdateUserReq
     isDisabled: boolean
     isLoading: boolean
-    validate: UpdateUserReq
+    validate: any
     isEdit: boolean
 }
 
@@ -42,12 +42,7 @@ export default class Index extends React.Component<Props, State> {
             },
             isDisabled: true,
             isLoading: false,
-            validate: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: ''
-            },
+            validate: {},
             isEdit: false
         }
     }
@@ -75,12 +70,7 @@ export default class Index extends React.Component<Props, State> {
     doUpdateUser() {
         this.setState({
             isLoading: true,
-            validate: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: ''
-            }
+            validate: {}
         })
         UpdateUserService(this.state.updateUserReq)
             .pipe(
@@ -92,23 +82,24 @@ export default class Index extends React.Component<Props, State> {
             )
             .subscribe({
                 next: response => {
-                    if (response.code === 200) {
+                    this.setState({
+                        user: response.result,
+                        isEdit: false,
+                        updateUserReq: {
+                            firstName: response.result.firstName,
+                            lastName: response.result.lastName,
+                            email: response.result.email,
+                            password: ''
+                        }
+                    })
+                    Alert('success', response.message, '')
+                },
+                error: error => {
+                    if (error.code === 400) {
                         this.setState({
-                            user: response.result,
-                            isEdit: false,
-                            updateUserReq: {
-                                firstName: response.result.firstName,
-                                lastName: response.result.lastName,
-                                email: response.result.email,
-                                password: ''
-                            }
+                            validate: error.result
                         })
-                        Alert('success', response.message, '')
-                    } else if (response.code === 400) {
-                        this.setState({
-                            validate: response.result
-                        })
-                        Alert('error', response.message, '')
+                        Alert('error', error.message, '')
                     }
                 }
             })
@@ -192,6 +183,8 @@ export default class Index extends React.Component<Props, State> {
                                 name='firstName'
                                 onChange={this.handleOnChange.bind(this)}
                                 readOnly={!this.state.isEdit}
+                                error={this.state.validate.firstName !== undefined}
+                                errorMessage={this.state.validate.firstName}
                                 />
                         </div>
                         <div>
@@ -203,6 +196,8 @@ export default class Index extends React.Component<Props, State> {
                                 name='lastName'
                                 onChange={this.handleOnChange.bind(this)}
                                 readOnly={!this.state.isEdit}
+                                error={this.state.validate.lastName !== undefined}
+                                errorMessage={this.state.validate.lastName}
                             />
                         </div>
                         <div
@@ -214,6 +209,8 @@ export default class Index extends React.Component<Props, State> {
                                 label='Email'
                                 value={this.state.updateUserReq.email}
                                 readOnly={true}
+                                error={this.state.validate.email !== undefined}
+                                errorMessage={this.state.validate.email}
                             />
                         </div>
                         {
@@ -229,7 +226,7 @@ export default class Index extends React.Component<Props, State> {
                                         value={this.state.updateUserReq.password}
                                         name='password'
                                         onChange={this.handleOnChange.bind(this)}
-                                        error={this.state.validate.password.length > 0}
+                                        error={this.state.validate.password !== undefined}
                                         errorMessage={this.state.validate.password}
                                     />
                                 </div>
