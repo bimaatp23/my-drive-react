@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react'
+import { MouseEventHandler, ReactElement } from 'react'
 
 interface Props {
     onClick?: MouseEventHandler
@@ -9,8 +9,7 @@ interface Props {
     isDisabled?: boolean
 }
 
-export default function Button(props: Props) {
-
+export default function Button(props: Props): ReactElement {
     return <>
         <button 
             type={props.type} 
@@ -23,7 +22,7 @@ export default function Button(props: Props) {
     </>
 }
 
-function AnimationLoading() {
+function AnimationLoading(): ReactElement {
     return <>
         <p
             className='animate-pulse'

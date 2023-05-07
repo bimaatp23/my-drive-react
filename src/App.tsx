@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Base from './components/base/Base'
@@ -7,7 +7,7 @@ import Login from './components/login/Index'
 import Profile from './components/profile/Index'
 import Register from './components/register/Index'
 
-function App() {
+function App(): ReactElement {
   const isLogin: boolean = checkLogin()
   useEffect(() => {
     document.title = 'My Drive'

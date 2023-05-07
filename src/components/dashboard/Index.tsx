@@ -49,7 +49,7 @@ interface PropsItem {
     label: string
 }
 
-function Item(props: PropsItem) {
+function Item(props: PropsItem): ReactElement {
     return <>
         <div
             className='w-full rounded-md border border-cyan-500 text-cyan-500 flex flex-col items-center py-4'

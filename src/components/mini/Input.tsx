@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, KeyboardEventHandler } from 'react'
+import { ChangeEventHandler, KeyboardEventHandler, ReactElement } from 'react'
 
 interface Props {
     type: 'text' | 'password'
@@ -14,7 +14,7 @@ interface Props {
     onChange?: ChangeEventHandler
 }
 
-export default function Input(props: Props) {
+export default function Input(props: Props): ReactElement {
     return <>
         <div 
             className='w-full'

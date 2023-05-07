@@ -1,7 +1,7 @@
-import React from 'react'
+import { ReactElement } from 'react'
 import Button from '../mini/Button'
 
-export default function Header() {
+export default function Header(): ReactElement {
     return <>
         <div 
             className='bg-white rounded-lg w-full absolute h-16'

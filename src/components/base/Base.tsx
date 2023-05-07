@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { CheckTokenService } from '../../data/service/TokenService'
 import Header from './Header'
 import Sidebar from './Sidebar'
@@ -7,7 +7,7 @@ interface Props {
     element: ReactElement
 }
 
-export default function Base(props: Props) {
+export default function Base(props: Props): ReactElement {
     useEffect(() => {
         checkToken()
     })
