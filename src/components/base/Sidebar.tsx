@@ -1,16 +1,15 @@
-import React from 'react'
+import { ReactElement } from 'react'
 
-export default function Sidebar() {
+export default function Sidebar(): ReactElement {
     return <>
         <div 
             className='bg-white rounded-lg w-[20%] absolute top-20 h-[calc(100%-5rem)]'
         >
             <ul>
-                <Item label='Fitur 1'/>
-                <Item label='Fitur 2'/>
-                <Item label='Fitur 3'/>
-                <Item label='Fitur 4'/>
-                <Item label='Fitur 5'/>
+                <Item label='Dashboard' href='/'/>
+                <Item label='My File' href='#'/>
+                <Item label='Sharing File' href='#'/>
+                <Item label='Trash File' href='#'/>
             </ul>
         </div>
     </>
@@ -21,7 +20,7 @@ interface Props {
     href?: string
 }
 
-function Item(props: Props) {
+function Item(props: Props): ReactElement {
     return <>
         <a 
             href={props.href === undefined ? '#' : props.href}
