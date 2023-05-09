@@ -57,15 +57,7 @@ class Timeout extends React.Component<P, S> {
     componentDidMount(): void {
         setInterval(() => {
             if (this.state.time < 0) {
-                CheckTokenService()
-                .subscribe({
-                    error: error => {
-                        if (error.code === 403) {
-                            sessionStorage.clear() 
-                            window.location.assign('/login')
-                        }
-                    }
-                })
+                checkToken()
             } else {
                 this.setState({
                     time: this.state.time - 0.5
