@@ -109,6 +109,13 @@ export default class Index extends React.Component<Props, State> {
         })
         this.checkInput()
     }
+    handleOnKeyDown(event: any): void {
+        if (event.key === 'Enter') {
+            if (!(this.state.isDisabled || this.state.isLoading)) {
+                this.doRegister()
+            }
+        }
+    }
     checkInput(): void {
         this.setState({
             isDisabled: !(this.state.registerReq.firstName !== '' &&
@@ -141,6 +148,7 @@ export default class Index extends React.Component<Props, State> {
                         error={this.state.validate.firstName !== undefined}
                         errorMessage={this.state.validate.firstName}
                         value={this.state.registerReq.firstName}
+                        onKeyDown={this.handleOnKeyDown.bind(this)}
                     />
                     <Input 
                         type='text' 
@@ -151,6 +159,7 @@ export default class Index extends React.Component<Props, State> {
                         error={this.state.validate.lastName !== undefined}
                         errorMessage={this.state.validate.lastName}
                         value={this.state.registerReq.lastName}
+                        onKeyDown={this.handleOnKeyDown.bind(this)}
                     />
                     <Input 
                         type='text' 
@@ -161,6 +170,7 @@ export default class Index extends React.Component<Props, State> {
                         error={this.state.validate.email !== undefined}
                         errorMessage={this.state.validate.email}
                         value={this.state.registerReq.email}
+                        onKeyDown={this.handleOnKeyDown.bind(this)}
                     />
                     <Input 
                         type='password' 
@@ -171,6 +181,7 @@ export default class Index extends React.Component<Props, State> {
                         error={this.state.validate.password !== undefined}
                         errorMessage={this.state.validate.password}
                         value={this.state.registerReq.password}
+                        onKeyDown={this.handleOnKeyDown.bind(this)}
                     />
                     <Input 
                         type='password' 
@@ -181,6 +192,7 @@ export default class Index extends React.Component<Props, State> {
                         error={this.state.validate.cPassword !== undefined}
                         errorMessage={this.state.validate.cPassword}
                         value={this.state.registerReq.cPassword}
+                        onKeyDown={this.handleOnKeyDown.bind(this)}
                     />
                     <Button 
                         type='button' 
