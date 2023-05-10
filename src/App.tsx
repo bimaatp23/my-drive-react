@@ -2,10 +2,10 @@ import { ReactElement, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Base from './components/base/Base'
-import Dashboard from './components/dashboard/Index'
-import Login from './components/login/Index'
-import Profile from './components/profile/Index'
-import Register from './components/register/Index'
+import Dashboard from './components/dashboard/Dashboard'
+import Login from './components/login/Login'
+import Profile from './components/profile/Profile'
+import Register from './components/register/Register'
 
 function App(): ReactElement {
   const isLogin: boolean = checkLogin()

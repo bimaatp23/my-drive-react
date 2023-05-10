@@ -9,7 +9,7 @@ interface State {
 
 }
 
-export default class Index extends React.Component<Props, State> {
+export default class Dashboard extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {

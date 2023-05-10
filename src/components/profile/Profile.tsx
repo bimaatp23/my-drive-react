@@ -21,7 +21,7 @@ interface State {
     isEdit: boolean
 }
 
-export default class Index extends React.Component<Props, State> {
+export default class Profile extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {

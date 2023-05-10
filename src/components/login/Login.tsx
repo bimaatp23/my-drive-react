@@ -20,7 +20,7 @@ interface State {
     validate: any
 }
 
-export default class Index extends React.Component<Props, State> {
+export default class Login extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
