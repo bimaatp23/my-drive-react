@@ -8,7 +8,7 @@ export default function Sidebar(): ReactElement {
             <ul>
                 <Item label='Dashboard' href='/'/>
                 <Item label='My File' href='/file'/>
-                <Item label='Sharing File' href='#'/>
+                <Item label='Sharing File' href='/sharing'/>
                 <Item label='Trash File' href='/trash'/>
             </ul>
         </div>

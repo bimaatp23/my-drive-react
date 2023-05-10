@@ -3,11 +3,12 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Base from './components/base/Base'
 import Dashboard from './components/dashboard/Dashboard'
+import File from './components/file/File'
+import Sharing from './components/file/Sharing'
+import Trash from './components/file/Trash'
 import Login from './components/login/Login'
 import Profile from './components/profile/Profile'
 import Register from './components/register/Register'
-import File from './components/file/File'
-import Trash from './components/file/Trash'
 
 function App(): ReactElement {
   const isLogin: boolean = checkLogin()
@@ -43,6 +44,12 @@ function App(): ReactElement {
               path='/file' 
               element={<Base 
                 element={<File isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+              />}
+            />
+            <Route 
+              path='/sharing' 
+              element={<Base 
+                element={<Sharing isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
               />}
             />
             <Route 
