@@ -12,6 +12,7 @@ interface Props {
     onKeyUp?: KeyboardEventHandler
     name?: string
     onChange?: ChangeEventHandler
+    onKeyDown?: KeyboardEventHandler
 }
 
 export default function Input(props: Props): ReactElement {
@@ -34,6 +35,7 @@ export default function Input(props: Props): ReactElement {
                     onKeyUp={props.onKeyUp}
                     name={props.name === undefined ? '' : props.name}
                     onChange={props.onChange}
+                    onKeyDown={props.onKeyDown}
                 />
                 :
                 <input 
@@ -45,6 +47,7 @@ export default function Input(props: Props): ReactElement {
                     onKeyUp={props.onKeyUp}
                     name={props.name === undefined ? '' : props.name}
                     onChange={props.onChange}
+                    onKeyDown={props.onKeyDown}
                 />
             }
             <p 
