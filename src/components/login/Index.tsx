@@ -95,6 +95,13 @@ export default class Index extends React.Component<Props, State> {
         })
         this.checkInput()
     }
+    handleOnKeyDown(event: any): void {
+        if (event.key === 'Enter') {
+            if (!(this.state.isDisabled || this.state.isLoading)) {
+                this.doLogin()
+            }
+        }
+    }
     checkInput(): void {
         this.setState({
             isDisabled: !(this.state.loginReq.email !== '' && this.state.loginReq.password !== '')
@@ -122,6 +129,7 @@ export default class Index extends React.Component<Props, State> {
                         name='email'
                         error={this.state.validate.email !== undefined}
                         errorMessage={this.state.validate.email}
+                        onKeyDown={this.handleOnKeyDown.bind(this)}
                     />
                     <Input 
                         type='password' 
@@ -131,6 +139,7 @@ export default class Index extends React.Component<Props, State> {
                         name='password'
                         error={this.state.validate.password !== undefined}
                         errorMessage={this.state.validate.password}
+                        onKeyDown={this.handleOnKeyDown.bind(this)}
                     />
                     <Button 
                         type='button' 
