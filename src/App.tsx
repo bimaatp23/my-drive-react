@@ -6,6 +6,7 @@ import Dashboard from './components/dashboard/Dashboard'
 import Login from './components/login/Login'
 import Profile from './components/profile/Profile'
 import Register from './components/register/Register'
+import File from './components/file/File'
 
 function App(): ReactElement {
   const isLogin: boolean = checkLogin()
@@ -35,6 +36,12 @@ function App(): ReactElement {
               path='/profile' 
               element={<Base 
                 element={<Profile isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
+              />}
+            />
+            <Route 
+              path='/file' 
+              element={<Base 
+                element={<File isLogin={isLogin} redirect={<RedirectToLogin isLogin={isLogin}/>}/>}
               />}
             />
           </Routes>

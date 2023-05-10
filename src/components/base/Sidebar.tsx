@@ -7,7 +7,7 @@ export default function Sidebar(): ReactElement {
         >
             <ul>
                 <Item label='Dashboard' href='/'/>
-                <Item label='My File' href='#'/>
+                <Item label='My File' href='/file'/>
                 <Item label='Sharing File' href='#'/>
                 <Item label='Trash File' href='#'/>
             </ul>
