@@ -30,14 +30,17 @@ export default class Dashboard extends React.Component<Props, State> {
                 <Item 
                     count={17} 
                     label='My File'
+                    href='/file'
                 />
                 <Item 
                     count={3} 
                     label='Sharing File'
+                    href='/sharing'
                 />
                 <Item 
                     count={5} 
                     label='Trash File'
+                    href='/trash'
                 />
             </div>
         </>
@@ -47,12 +50,14 @@ export default class Dashboard extends React.Component<Props, State> {
 interface PropsItem {
     count: number
     label: string
+    href?: string
 }
 
 function Item(props: PropsItem): ReactElement {
     return <>
-        <div
+        <a
             className='w-full rounded-md border border-cyan-500 text-cyan-500 flex flex-col items-center py-4'
+            href={props.href === undefined ? '#' : props.href}
         >
             <p
                 className='text-5xl font-semibold'
@@ -64,6 +69,6 @@ function Item(props: PropsItem): ReactElement {
             >
                 {props.label}
             </p>
-        </div>
+        </a>
     </>
 }
